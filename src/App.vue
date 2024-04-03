@@ -17,6 +17,12 @@
       <div v-if="sessionStore.token !== ''" class="route-container">
         <router-link :to="{name: 'notes'}">Notas</router-link>
       </div>
+      <div v-if="sessionStore.token !== ''" class="route-container">
+        <router-link :to="{name: 'profile'}">Perfil</router-link>
+      </div>
+      <div v-if="sessionStore.token !== ''" class="route-container">
+        <button @click="sessionStore.DestroySession()">Cerrar sesión</button>
+      </div>
     </section>
 
     <main class="container">

@@ -10,20 +10,12 @@ const loginError = ref('')
 const loginService = new LoginService()
 
 const TryLogin = async () => {
-  const loginResult = loginService.GetLoginResult()
+  const loginResult = loginService.getLoginResult()
   await loginService.TryLogin(username.value, password.value)
   if (loginResult.value.success){
     // Registra los datos de sesión
-    const userData = loginService.GetUserData()
-    if(userData.value.success){
-      sessionStore.token = loginResult.value['token']
-      sessionStore.userData = userData.value['message']
-      console.log(userData.value)
-      window.location.href = '/'
-    }
-    else{
-      loginError.value = userData.value['message']
-    }
+    sessionStore.token = loginResult.value['token']
+    window.location.href = '/'
   }
   else{
     loginError.value = loginResult.value['message']

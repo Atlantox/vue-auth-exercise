@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-
+from flask_cors import cross_origin
 from models.UserModel import UserModel
 from helpers import *
 
@@ -17,7 +17,8 @@ def initModels():
     return UserModel(connection)
 
 
-@usersBlueprint.route('/users', methods=['GET'])
+@usersBlueprint.route('/users', methods=['OPTIONS'])
+@cross_origin()
 def GetUserData():
     userModel = initModels()
     response = {}
@@ -66,7 +67,7 @@ def RegisterUser():
             'password',
             'email'
         ]
-        dataOK = userModel.HasEmptyFields(requiredFields, recievedData)
+        dataOK = HasEmptyFields(requiredFields, recievedData)
         if dataOK is not False:
             error = dataOK
             statusCode = 400  # Bad request
@@ -84,13 +85,13 @@ def RegisterUser():
             statusCode = 400
 
     if error == '':
-        suspicious = userModel.HasSuspiciousCharacters(['username'], recievedData)
+        suspicious = HasSuspiciousCharacters(['username'], recievedData)
         if suspicious is not False:
             error = 'El usuario contiene caracteres sospechosos'
             statusCode = 400
 
     if error == '':
-        emailOK = userModel.EmailIsOK(recievedData['email'])
+        emailOK = EmailIsOK(recievedData['email'])
         if emailOK == False:
             error = 'Correo inválido'
             statusCode = 400
@@ -120,6 +121,7 @@ def RegisterUser():
     return jsonify({'success': success, 'message': message}), statusCode
 
 @usersBlueprint.route('/login', methods=['POST'])
+@cross_origin()
 def TryLogin():
     userModel = initModels()
     statusCode = 200

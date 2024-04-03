@@ -85,14 +85,11 @@ class UserModel(BaseModel):
         sql = '''SELECT
             usuario.username,
             usuario.email,
-            COUNT(nota.id) as notes
             FROM
             usuario
-            INNER JOIN nota ON nota.usuario = usuario.id
             WHERE
             usuario.token = '{0}'
-            GROUP BY
-            usuario.id'''.format(token)
+            '''.format(token)
         
         cursor.execute(sql)
         return cursor.fetchone()

@@ -3,9 +3,16 @@ import { defineStore } from 'pinia'
 const useSessionStore = defineStore('session', {
   state: () => {
     return {
-      token: ''
+      token: '',
+      userData: ''
     }
   },
+  actions:{
+    DestroySession(){
+      this.token = ''
+    }
+  },
+
   persist: true
 })
 
