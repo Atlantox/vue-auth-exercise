@@ -6,15 +6,10 @@ const apiConfig = new ApiConfig()
 class LoginService{
     constructor(){
         this.loginResult = ref('')
-        this.userData = ref('')
     }
 
     GetLoginResult(){
         return this.loginResult
-    }
-
-    GetUserData(){
-        return this.userData;
     }
 
     async TryLogin(username, password){
@@ -40,23 +35,6 @@ class LoginService{
             let response = await fetch(url, fetchConfig)
             let json = await response.json()
             this.loginResult.value = await json
-            if(json['success'] === true){
-                
-                // Guardemos la información del usuario
-                url = apiConfig.base_url + '/users'
-
-                var response2 = await fetch(url, {
-                    method:'OPTIONS',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + this.loginResult.value.token
-                    }
-                })
-                
-                json = await response2.json()
-                this.userData.value = await json
-                console.log('AAAAAAAAA')
-            }
         }
         catch(error){
             this.loginResult.value = 'Error: ' + error

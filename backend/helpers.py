@@ -146,4 +146,5 @@ def GetTokenOfRequest(request):
         token = bearer.split(' ')[1]
     else:
         token = None
+    
     return token

@@ -17,8 +17,7 @@ def initModels():
     return UserModel(connection)
 
 
-@usersBlueprint.route('/users', methods=['OPTIONS'])
-@cross_origin()
+@usersBlueprint.route('/users', methods=['GET'])
 def GetUserData():
     userModel = initModels()
     response = {}
@@ -121,7 +120,6 @@ def RegisterUser():
     return jsonify({'success': success, 'message': message}), statusCode
 
 @usersBlueprint.route('/login', methods=['POST'])
-@cross_origin()
 def TryLogin():
     userModel = initModels()
     statusCode = 200
@@ -170,6 +168,7 @@ def TryLogin():
         if loginResult is False:
             error = 'Credenciales inválidas'
         else:
+            userData = userModel.GetUserPublicData(loginResult)
             message = loginResult
             
     if error != '':
@@ -180,6 +179,7 @@ def TryLogin():
 
     if error == '':
         response['token'] = message
+        response['userData'] = userData
     else:
         response['message'] = message
     

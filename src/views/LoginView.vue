@@ -14,16 +14,9 @@ const TryLogin = async () => {
   await loginService.TryLogin(username.value, password.value)
   if (loginResult.value.success){
     // Registra los datos de sesión
-    const userData = loginService.GetUserData()
-    if(userData.value.success){
       sessionStore.token = loginResult.value['token']
-      sessionStore.userData = userData.value['message']
-      console.log(userData.value)
+      sessionStore.userData = loginResult.value['userData']
       window.location.href = '/'
-    }
-    else{
-      loginError.value = userData.value['message']
-    }
   }
   else{
     loginError.value = loginResult.value['message']

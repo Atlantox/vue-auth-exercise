@@ -84,7 +84,7 @@ class UserModel(BaseModel):
         cursor = self.connection.connection.cursor()
         sql = '''SELECT
             usuario.username,
-            usuario.email,
+            usuario.email
             FROM
             usuario
             WHERE
