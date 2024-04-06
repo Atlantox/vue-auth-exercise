@@ -20,12 +20,6 @@ usersBlueprint.connection = connection
 def NotFound(error):
     return jsonify({'success': False, 'message': 'Ruta no encontrada'}), 404
 
-'''
-@app.after_request
-def creds(response):
-    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:5173'
-    return response
-'''
 
 if __name__ == '__main__':
     app.config.from_object(config['development'])

@@ -10,6 +10,7 @@ const useSessionStore = defineStore('session', {
   actions:{
     DestroySession(){
       this.token = ''
+      window.location.href = '/'
     }
   },
 
