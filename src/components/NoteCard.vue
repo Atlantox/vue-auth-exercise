@@ -2,6 +2,7 @@
 import { defineProps } from 'vue'
 
 const props = defineProps({
+    id: {type: Number},
     title:{ type: String },
     content:{ type: String },
     created:{ type: String }
@@ -14,7 +15,7 @@ const props = defineProps({
         <p> {{ props.content }}</p>
         <span> {{ props.created }}</span>
         <div>
-            <a href="">
+            <a :href="'/noteForm/' + props.id">
                 <button>Ver</button>
             </a>
         </div>

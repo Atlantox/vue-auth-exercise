@@ -5,6 +5,7 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import NotesView from '../views/NotesView.vue'
 import ProfileView from '../views/ProfileView.vue'
+import NoteForm from '../views/NoteForm.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +32,12 @@ const router = createRouter({
       path: '/notes',
       name: 'notes',
       component: NotesView,
+      meta: {requireAuth: true, denyIfAuth: false}
+    },
+    {
+      path: '/noteForm/:id?',
+      name: 'noteForm',
+      component: NoteForm,
       meta: {requireAuth: true, denyIfAuth: false}
     },
     {

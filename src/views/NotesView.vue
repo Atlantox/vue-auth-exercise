@@ -20,12 +20,16 @@ console.log(notes.value)
 
 <template>
     <h1>Gestión de notas</h1>
-    <div
+    <div class="container">
+        <router-link :to="{name:'noteForm'}">Nueva nota</router-link>
+    </div>
+    <div class="container"
     v-if="notes.length > 0">
         <article
         v-for="(note, index) in notes"
         :key="index">
             <NoteCard
+            :id = "note.id"
             :title = "note.titulo"
             :content = "note.contenido"
             :created = "note.fecha_creacion"

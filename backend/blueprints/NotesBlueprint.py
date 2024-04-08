@@ -57,17 +57,19 @@ def CreateNote():
         if type(targetUser) is str:
             error = targetUser
             statusCode = 400
-
-    if error == '':
-        error = ValidateNoteData(recievedData)
-        if error != '':
-            statusCode = 400
     
+    if error == '':
+        filteredData = ValidateNoteData(recievedData)
+        if type(filteredData) is str :
+            error = filteredData
+            statusCode = 400
+    print(error, '<- errorcito')
     if error == '':
         created = noteModel.CreateNote(recievedData, targetUser['id'])
         if created is False:
             error = 'Hubo un error al crear la nota en la base de datos'
             statusCode = 500
+    
     
     success = error == ''
     response = {'success': success}
@@ -90,7 +92,6 @@ def UpdateNote(noteId):
 
     if error == '':
         cleanData = ValidateNoteData(recievedData)
-        print(cleanData, 'AAAAAAAAAAAAAAAAAAA')
         if type(cleanData) is str:
             error = cleanData
             statusCode = 400
