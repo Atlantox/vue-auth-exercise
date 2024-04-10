@@ -61,7 +61,6 @@ router.beforeEach((to, from, next) => {
   else if(userLogged && denyIfAuth)
     next({name: 'home'})
   else{
-    console.log('adelante')
     next()  
   }
 }) 

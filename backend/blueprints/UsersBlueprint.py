@@ -67,7 +67,7 @@ def RegisterUser():
             'email'
         ]
         dataOK = HasEmptyFields(requiredFields, recievedData)
-        if dataOK is not False:
+        if type(dataOK) is str:
             error = dataOK
             statusCode = 400  # Bad request
 
@@ -79,7 +79,7 @@ def RegisterUser():
         }
 
         lengthOK = ValidateLength(lengthValidator, recievedData)
-        if lengthOK is not True:
+        if type(lengthOK) is str:
             error = lengthOK
             statusCode = 400
 
@@ -115,7 +115,7 @@ def RegisterUser():
 
     if error != '':
         message = error
-
+        
     success = error == ''
     return jsonify({'success': success, 'message': message}), statusCode
 

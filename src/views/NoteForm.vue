@@ -11,7 +11,7 @@ const title = ref('')
 const content = ref('')
 let id = ''
 const route = useRoute()
-let edit = route.params.id !== ''
+let edit = route.params.id !== undefined
 if(edit === true)
     id = route.params.id
 
@@ -26,8 +26,6 @@ onMounted(async () => {
             window.location.href = '/'
         }
     }
-    console.log(targetNote.value)
-
 })
 
 const HandleNote = (async () => {
@@ -40,7 +38,6 @@ const HandleNote = (async () => {
         data['id'] = id
 
     await noteService.HandleNote(data)
-    console.log(handleResult.value)
     if(handleResult.value === true){
         alert('Nota ' + (edit === true ? 'editada' : 'creada') + ' correctamente')
         if(edit === false){

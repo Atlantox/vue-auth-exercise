@@ -14,7 +14,6 @@ onMounted(async () => {
     }
 })
 
-console.log(notes.value)
 
 </script>
 
